@@ -1,8 +1,45 @@
-<header class="bg-blue-500 p-4">
-  <div class="container mx-auto flex justify-between items-center">
-    <%= link_to "Shop", root_path, class: "text-white text-2xl font-bold" %>
-    <nav>
-      <%# <%= link_to "Cart", carts_path, class: "text-white ml-6" %> %>
+<header class="bg-blue-600 text-white shadow-md">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+    <!-- Logo / Brand Name -->
+    <div class="text-2xl font-semibold">
+      <a href="/" class="text-white hover:text-gray-300">MyShopping</a>
+    </div>
+    
+    <!-- Navigation Links -->
+    <nav class="hidden md:flex space-x-6">
+      <a href="/" class="text-white hover:text-gray-300">Home</a>
+      <a href="/products" class="text-white hover:text-gray-300">Products</a>
+      <a href="/cart" class="text-white hover:text-gray-300">Cart</a>
+      <a href="/profile" class="text-white hover:text-gray-300">Profile</a>
+      <% if user_signed_in? %>
+        <a href="/logout" class="text-white hover:text-gray-300">Logout</a>
+      <% else %>
+        <a href="/login" class="text-white hover:text-gray-300">Login</a>
+      <% end %>
+    </nav>
+    
+    <!-- Mobile Menu Button -->
+    <div class="md:hidden flex items-center">
+      <button id="mobile-menu-button" class="text-white focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="md:hidden hidden bg-blue-500 text-white py-4">
+    <nav class="flex flex-col items-center space-y-4">
+      <a href="/" class="hover:text-gray-300">Home</a>
+      <a href="/products" class="hover:text-gray-300">Products</a>
+      <a href="/carts" class="hover:text-gray-300">Cart</a>
+      <a href="/profile" class="hover:text-gray-300">Profile</a>
+      <% if user_signed_in? %>
+        <a href="/logout" class="hover:text-gray-300">Logout</a>
+      <% else %>
+        <a href="/login" class="hover:text-gray-300">Login</a>
+      <% end %>
     </nav>
   </div>
 </header>

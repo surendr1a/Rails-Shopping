@@ -1,43 +1,30 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= content_for(:title) || "Shoping" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Website</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+  <!-- Render Header -->
+  <%= render 'shared/header' %>
 
-    <%= yield :head %>
+  <!-- Main Content -->
+  <main class="mt-8">
+    <%= yield %> <!-- Your page content will be rendered here -->
+  </main>
 
-    <!-- PWA Manifest (optional) -->
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+  <!-- Render Footer -->
+  <%= render 'shared/footer' %>
 
-    <!-- Favicon -->
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <!-- Tailwind and Inter Font Stylesheets -->
-    <%# <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %> %>
-    <%# <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %> %>
-    <%# <%= stylesheet_link_tag "application.tailwind", "inter-font", "data-turbo-track": "reload" %> %>
-    <%# <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %> %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-
-    <!-- Import JavaScript -->
-    <%= javascript_importmap_tags %>
-  </head>
-
-  <body class="bg-gray-100 font-sans">
-    <main class="container mx-auto mt-28 px-5 flex">
-      <!-- Example content using Tailwind CSS -->
-      <div class="container mx-auto p-8">
-        <h1 class="text-4xl font-bold text-center text-blue-500">hello , surendra</h1>
-      </div>
-
-      <!-- Main Yield for Page Content -->
-      <%= yield %>
-    </main>
-  </body>
+  <script>
+    // Toggle mobile menu visibility
+    const menuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
 </html>
