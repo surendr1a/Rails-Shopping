@@ -1,0 +1,19 @@
+<%= render 'shared/header' %>
+
+<div class="container mx-auto mt-10">
+  <h1 class="text-4xl font-bold text-center mb-10">Welcome to Our Shop</h1>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+    <% @products.each do |product| %>
+      <div class="border p-4 rounded shadow-lg">
+        <%= image_tag product.product_images.first&.image_url, class: 'w-full h-64 object-cover rounded' %>
+        <h2 class="mt-4 text-xl font-semibold"><%= product.name %></h2>
+        <p class="text-gray-500 mt-2"><%= product.description.truncate(100) %></p>
+        <p class="mt-4 text-lg text-blue-500"><%= number_to_currency(product.price) %></p>
+        <%= button_to 'Add to Cart', cart_items_path(product_id: product.id), method: :post, class: 'mt-4 w-full bg-blue-500 text-white py-2 rounded' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= render 'shared/footer' %>
