@@ -1,25 +1,44 @@
 Rails.application.routes.draw do
-  # Devise routes for user authentication
-  devise_for :users, controllers: {
-    registrations: "users/registrations",
-    sessions: "users/sessions",
-  }
+  root to: 'home#index'  # Home page route
+  
+  # User-related routes (Devise should handle sign in, sign up, etc.)
+  devise_for :users
+  
+  # Product-related routes
+  resources :products do
+    resources :product_reviews, only: [:create]  # Nested route for product reviews
+  end
 
-  # Root route
-  root "products#index" 
+  # Cart routes
+  resources :carts, only: [:index, :show]  # For displaying cart and its details
 
-  resources :products, only: [:index, :show]
-  resources :carts, only: [:show]
-  resources :cart_items, only: [:create, :destroy]
-  resources :product_categories, only: [:index, :show]
-  resources :orders, only: [:index, :show, :create]
-  resources :product_reviews, only: [:create, :destroy]
-  resources :wishlists, only: [:index, :create, :destroy]
-  get "up" => "rails/health#show", as: :rails_health_check
-
-  # Optional: Routes for PWA (Progressive Web App) manifest and service worker
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-
-  # Additional Routes for any other resources can be added here
+  # Cart Items (For adding/removing/updating individual cart items)
+  resources :cart_items, only: [:create, :destroy] do
+    member do
+      patch 'update_item'  # For updating quantity or other attributes of an item
+    end
+  end
+  
+  # Order routes
+  resources :orders
+  
+  # Business profiles routes
+  resources :business_profiles
+  
+  # Wishlist routes
+  resources :wishlists, only: [:show, :create, :destroy]  # Adding, showing, and removing items
+  
+  # Categories and Discounts routes
+  resources :categories, only: [:index, :show]
+  resources :discounts, only: [:index, :show]
+ 
+  resources :users, only: [:show] do
+    collection do
+      get 'profile', to: 'users#show'
+    end
+  end
+  # Admin routes
+  namespace :admin do
+    resources :products, :orders
+  end
 end

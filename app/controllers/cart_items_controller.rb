@@ -5,18 +5,22 @@ class CartItemsController < ApplicationController
     @cart = current_user.cart
     @product = Product.find(params[:product_id])
 
-    @Cart_item = @cart.cart_items.find_or_initialize_by(product: @product)
-    @cart_item.quantity +=1
-    @cart_item.save
+    @cart_item = @cart.cart_items.find_or_initialize_by(product: @product)
+    @cart_item.quantity += 1
 
-    redirect_to_cart_path
+    if @cart_item.save
+      redirect_to cart_path(@cart), notice: 'Item added to your cart!'
+    else
+      redirect_to cart_path(@cart), alert: 'Error adding item to cart.'
+    end
   end
 
   def destroy
-   @Cart_item = current_user.Cart.cart_item.find(params[:id])
-   @cart_item.destroy
-
-   redirect_to_cart_path
+    @cart_item = current_user.cart.cart_items.find(params[:id])
+    if @cart_item.destroy
+      redirect_to cart_path(current_user.cart), notice: 'Item removed from your cart.'
+    else
+      redirect_to cart_path(current_user.cart), alert: 'Error removing item from cart.'
+    end
   end
 end
-

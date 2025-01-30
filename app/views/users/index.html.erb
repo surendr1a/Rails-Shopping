@@ -1,0 +1,8 @@
+<h1>Users List</h1>
+
+<% @users.each do |user| %>
+  <p>
+    <%= user.name %> - <%= user.email %>
+    <%= link_to 'View Profile', user_path(user) %>
+  </p>
+<% end %>

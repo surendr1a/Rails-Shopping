@@ -7,19 +7,17 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-50">
-  <!-- Render Header -->
+
   <%= render 'shared/header' %>
 
-  <!-- Main Content -->
   <main class="mt-8">
-    <%= yield %> <!-- Your page content will be rendered here -->
+    <%= yield %> 
   </main>
 
-  <!-- Render Footer -->
   <%= render 'shared/footer' %>
 
   <script>
-    // Toggle mobile menu visibility
+
     const menuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
     menuButton.addEventListener('click', () => {

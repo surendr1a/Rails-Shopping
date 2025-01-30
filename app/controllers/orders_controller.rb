@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   before_action :set_order, only: [:show, :update, :destroy]
 
   def index
@@ -34,7 +34,7 @@ class OrdersController < ApplicationController
     @order.destroy
     redirect_to orders_url, notice: 'Order was successfully canceled.'
   end
-  
+
   private
 
   def set_order

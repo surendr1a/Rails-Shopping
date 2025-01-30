@@ -1,0 +1,15 @@
+<h1 class="text-3xl font-bold text-center my-4">Your Profile</h1>
+
+<div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
+  <h2 class="text-xl font-semibold text-gray-900">Name: <%= @user.name %></h2>
+  <p class="text-gray-700">Email: <%= @user.email %></p>
+  <p class="text-gray-700">Joined: <%= @user.created_at.strftime("%B %d, %Y") %></p>
+
+  <!-- If the user has additional attributes like bio, phone number, etc., display them here -->
+  <% if @user.present? %>
+    <p class="text-gray-700">Bio: <%= @user.name %></p>
+  <% end %>
+
+  <!-- Optionally, add a button to edit the profile -->
+  <%= link_to 'Edit Profile', edit_user_registration_path, class: 'text-indigo-600 mt-4 inline-block' %>
+</div>

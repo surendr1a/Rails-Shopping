@@ -1,0 +1,38 @@
+<!-- app/views/carts/index.html.erb -->
+<div class="container mx-auto mt-10">
+  <h1 class="text-4xl font-bold text-center mb-10">Your Cart</h1>
+
+  <% if @cart_items.any? %>
+    <div class="space-y-4">
+      <% @cart_items.each do |cart_item| %>
+        <div class="border p-4 rounded shadow-lg flex items-center justify-between">
+          <div class="flex items-center">
+            <!-- Product Image -->
+            <%= image_tag cart_item.product.product_images.first&.image_url, class: 'w-16 h-16 object-cover rounded' %>
+            <!-- Product Name -->
+            <div class="ml-4">
+              <h2 class="text-xl font-semibold"><%= cart_item.product.name %></h2>
+              <p class="text-gray-500"><%= cart_item.product.description.truncate(50) %></p>
+            </div>
+          </div>
+          <div class="text-lg text-blue-500">
+            <%= number_to_currency(cart_item.product.price) %>
+          </div>
+          <div class="flex items-center space-x-4">
+            <!-- Quantity -->
+            <input type="number" value="<%= cart_item.quantity %>" min="1" class="w-16 text-center border p-2 rounded" />
+            <!-- Remove Button -->
+            <%= button_to 'Remove', cart_item_path(cart_item), method: :delete, class: 'bg-red-500 text-white py-1 px-4 rounded' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="mt-6 text-right">
+      <h2 class="text-2xl font-bold">Total: <%= number_to_currency(@cart_items.sum { |item| item.product.price * item.quantity }) %></h2>
+      <%= link_to 'Proceed to Checkout', checkout_path, class: 'bg-green-500 text-white py-2 px-4 rounded mt-4 inline-block' %>
+    </div>
+  <% else %>
+    <p class="text-center text-lg">Your cart is empty.</p>
+  <% end %>
+</div>

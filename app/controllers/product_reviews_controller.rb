@@ -6,7 +6,7 @@ class ProductReviewsController < ApplicationController
     @review = @product.product_reviews.build(product_review_params)
     @review.user = current_user
     if @review.save
-      redirect_to @product, notice: 'Review was successfully added.'
+      redirect_to @product, notice: 'Review added successfully.'
     else
       redirect_to @product, alert: 'Error adding review.'
     end

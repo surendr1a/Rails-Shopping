@@ -1,18 +1,24 @@
 class WishlistsController < ApplicationController
-  # before_action :authenticate_user!
-  # before_action :set_wishlist, only: [:show, :add_item, :remove_item]
+  before_action :authenticate_user!
+  before_action :set_wishlist, only: [:show, :add_item, :remove_item]
 
   def show
   end
 
   def add_item
-    @wishlist.add_product(params[:product_id])
-    redirect_to @wishlist, notice: 'Item added to wishlist!'
+    if @wishlist.add_product(params[:product_id])
+      redirect_to @wishlist, notice: 'Item added to wishlist!'
+    else
+      redirect_to @wishlist, alert: 'Error adding item.'
+    end
   end
 
   def remove_item
-    @wishlist.remove_product(params[:product_id])
-    redirect_to @wishlist, notice: 'Item removed from wishlist!'
+    if @wishlist.remove_product(params[:product_id])
+      redirect_to @wishlist, notice: 'Item removed from wishlist.'
+    else
+      redirect_to @wishlist, alert: 'Error removing item.'
+    end
   end
 
   private
