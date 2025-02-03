@@ -1,9 +1,41 @@
-<!-- app/views/carts/show.html.erb -->
-<h1>Your Cart</h1>
-<% @cart.items.each do |item| %>
-  <div>
-    <p><%= item.product.name %></p>
-    <p>Quantity: <%= item.quantity %></p>
-    <p>Price: <%= item.product.price * item.quantity %></p>
-  </div>
+<h1 class="text-3xl font-bold text-center text-gray-800 my-6">Your Cart</h1>
+
+<% if @cart_items.any? %>
+  <table class="w-full border-collapse border border-gray-300">
+    <thead>
+      <tr class="bg-gray-200">
+        <th class="border border-gray-300 px-4 py-2">Product</th>
+        <th class="border border-gray-300 px-4 py-2">Price</th>
+        <th class="border border-gray-300 px-4 py-2">Quantity</th>
+        <th class="border border-gray-300 px-4 py-2">Total</th>
+        <th class="border border-gray-300 px-4 py-2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @cart_items.each do |cart_item| %>
+        <tr>
+          <td class="border border-gray-300 px-4 py-2"><%= cart_item.product.name %></td>
+          <td class="border border-gray-300 px-4 py-2">$ <%= cart_item.product.price %></td>
+          <td class="border border-gray-300 px-4 py-2"><%= cart_item.quantity %></td>
+          <td class="border border-gray-300 px-4 py-2">$ <%= cart_item.quantity * cart_item.product.price %></td>
+          <td class="border border-gray-300 px-4 py-2">
+        
+            <%= form_with url: cart_remove_item_path(@cart.id, cart_item.id), method: :delete, local: true do |form| %>
+  <%= form.submit 'Remove Item', class: "bg-red-500 text-white px-4 py-2 rounded" %>
+<% end %>
+
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <p class="mt-6 text-xl font-semibold text-right">Total: $ <%= @cart_items.sum { |item| item.quantity * item.product.price } %></p>
+  <%= form_with url: place_order_path, method: :post, local: true do |form| %>
+    <%= form.submit 'Order Now', class: "bg-green-500 text-white py-4 px-4 rounded my-4 cursor-pointer  max-w-xs mx-auto flex justify-center items-center" %>
+
+  <% end %>
+  
+<% else %>
+  <p class="text-center text-gray-600 text-lg">Your cart is empty.</p>
 <% end %>

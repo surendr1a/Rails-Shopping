@@ -1,0 +1,21 @@
+<h1 class="text-3xl font-bold mb-6">My Orders</h1>
+
+<% if @orders.any? %>
+  <% @orders.each do |order| %>
+    <div class="border p-4 rounded-lg shadow-md bg-white mb-4">
+      <p class="text-xl font-semibold">Order ID: <%= order.id %></p>
+      <p class="text-gray-700">Status: <%= order.status.capitalize %></p>
+      <p class="text-gray-700">Total Price: ₹<%= order.total_price %></p>
+      <p class="text-gray-700">Ordered At: <%= order.created_at.strftime("%d %b %Y %I:%M %p") %></p>
+
+      <h3 class="text-lg font-semibold mt-2">Items:</h3>
+      <ul>
+        <% order.order_items.each do |item| %>
+          <li class="text-gray-600"><%= item.quantity %>x <%= item.product.name %> - ₹<%= item.total_price %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% else %>
+  <p class="text-center text-gray-600 text-lg">You have no orders yet.</p>
+<% end %>

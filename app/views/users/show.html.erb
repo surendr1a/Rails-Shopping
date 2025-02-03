@@ -1,15 +1,40 @@
-<h1 class="text-3xl font-bold text-center my-4">Your Profile</h1>
+<h1 class="text-4xl font-extrabold text-center text-gray-800 my-6">Your Profile</h1>
 
-<div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
-  <h2 class="text-xl font-semibold text-gray-900">Name: <%= @user.name %></h2>
-  <p class="text-gray-700">Email: <%= @user.email %></p>
-  <p class="text-gray-700">Joined: <%= @user.created_at.strftime("%B %d, %Y") %></p>
+<div class="max-w-xl mx-auto bg-white p-8 rounded-2xl shadow-xl border border-gray-200">
+  <div class="flex items-center space-x-4 mb-6">
+    <div class="w-16 h-16 bg-gray-300 rounded-full flex items-center justify-center">
+      <i class="text-2xl text-gray-600 fas fa-user"></i>
+    </div>
+    <div>
+      <h2 class="text-2xl font-bold text-gray-900"><%= @user.name %></h2>
+      <p class="text-gray-500 text-sm">Member since <%= @user.created_at.strftime("%B %d, %Y") %></p>
+    </div>
+  </div>
 
-  <!-- If the user has additional attributes like bio, phone number, etc., display them here -->
-  <% if @user.present? %>
-    <p class="text-gray-700">Bio: <%= @user.name %></p>
-  <% end %>
+  <div class="space-y-4">
+    <div class="flex justify-between items-center border-b pb-3">
+      <span class="text-gray-500 font-medium">Email</span>
+      <span class="text-gray-900 font-semibold"><%= @user.email %></span>
+    </div>
 
-  <!-- Optionally, add a button to edit the profile -->
-  <%= link_to 'Edit Profile', edit_user_registration_path, class: 'text-indigo-600 mt-4 inline-block' %>
+    <div class="flex justify-between items-center border-b pb-3">
+      <span class="text-gray-500 font-medium">Role</span>
+      <span class="text-gray-900 font-semibold capitalize"><%= @user.role %></span>
+    </div>
+
+    <div class="flex justify-between items-center border-b pb-3">
+      <span class="text-gray-500 font-medium">Address</span>
+      <span class="text-gray-900 font-semibold"><%= @user.address.presence || 'Not Provided' %></span>
+    </div>
+
+    <div class="flex justify-between items-center">
+      <span class="text-gray-500 font-medium">Joined</span>
+      <span class="text-gray-900 font-semibold"><%= @user.created_at.strftime("%B %d, %Y") %></span>
+    </div>
+  </div>
+
+  <!-- Edit Profile Button -->
+  <div class="mt-6 text-center">
+    <%= link_to 'Edit Profile', edit_user_registration_path, class: 'bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-6 rounded-lg text-lg shadow-md' %>
+  </div>
 </div>

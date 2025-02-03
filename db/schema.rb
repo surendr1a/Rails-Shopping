@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_30_123248) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_31_094632) do
   create_table "bulk_orders", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "quantity"
@@ -172,6 +172,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_30_123248) do
     t.decimal "weight"
     t.string "brand"
     t.string "color"
+    t.integer "user_id"
+    t.integer "cart_id"
   end
 
   create_table "purchase_orders", force: :cascade do |t|

@@ -1,16 +1,10 @@
 class ApplicationController < ActionController::Base
-  # Allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
-  allow_browser versions: :modern
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
-  # Check if the user is authenticated
-  # before_action :authenticate_user!
+  protected
 
-  # Error handling for common exceptions
-  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-
-  private
-
-  def record_not_found
-    redirect_to root_path, alert: "The record you're looking for doesn't exist."
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :role, :address])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :role, :address])
   end
 end

@@ -1,44 +1,44 @@
 Rails.application.routes.draw do
-  root to: 'home#index'  # Home page route
-  
-  # User-related routes (Devise should handle sign in, sign up, etc.)
-  devise_for :users
-  
+  # Root route
+  root to: 'home#index'
+
+  # Devise routes for user authentication
+  devise_for :users, controllers: {
+    registrations: "users/registrations",
+    session: "users/sessions",
+  }
+
+  # User Dashboard route
+  get '/dashboard', to: 'dashboard#show', as: 'dashboard'
+
   # Product-related routes
   resources :products do
-    resources :product_reviews, only: [:create]  # Nested route for product reviews
+    post 'add_to_cart', on: :collection
   end
+  post 'cart/add_item', to: 'carts#add_item', as: 'add_item_cart'
 
-  # Cart routes
-  resources :carts, only: [:index, :show]  # For displaying cart and its details
+#order 
+post 'cart/place_order', to: 'orders#create', as: 'place_order'
+resources :orders, only: [:index, :show]
 
-  # Cart Items (For adding/removing/updating individual cart items)
-  resources :cart_items, only: [:create, :destroy] do
-    member do
-      patch 'update_item'  # For updating quantity or other attributes of an item
-    end
+  # Cart-related routes
+ # config/routes.rb
+resources :carts, only: [:index, :show, :create] do
+  delete 'remove_item/:cart_item_id', to: 'carts#remove_item', as: :remove_item
+end
+# delete '/carts/:id/remove_item', to: 'carts#remove_item', as: 'remove_item_cart'
+
+
+  # Cart item routes for adding/removing items
+  resources :cart_items, only: [:create, :destroy]
+
+  # User profile route
+  resources :users, only: [:show] do
+    get 'profile', on: :collection, to: 'users#show'
   end
-  
-  # Order routes
   resources :orders
   
-  # Business profiles routes
-  resources :business_profiles
-  
-  # Wishlist routes
-  resources :wishlists, only: [:show, :create, :destroy]  # Adding, showing, and removing items
-  
-  # Categories and Discounts routes
-  resources :categories, only: [:index, :show]
-  resources :discounts, only: [:index, :show]
- 
-  resources :users, only: [:show] do
-    collection do
-      get 'profile', to: 'users#show'
-    end
-  end
-  # Admin routes
-  namespace :admin do
-    resources :products, :orders
-  end
+  # Admin namespace for managing products and orders
+  # namespace :admin do
+  # end
 end

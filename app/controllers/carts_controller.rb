@@ -1,43 +1,62 @@
 class CartsController < ApplicationController
-  # before_action :authenticate_user!
-  # before_action :set_cart, only: [:index, :show, :add_item, :remove_item, :update_item]
+  before_action :set_cart
 
   def index
-    @cart_items = CartItem.all  # Ensure you get cart items here
+    @cart_items = @cart.cart_items
+  end
+
+  def create
+    @product = Product.find(params[:product_id])
+    quantity = params[:quantity].to_i
+
+    if @cart.add_product(@product.id, quantity)
+      redirect_to cart_path(@cart.id), notice: 'Product added to your cart!'
+    else
+      redirect_to products_path, alert: 'Error adding product to cart.'
+    end
   end
 
   def show
-    # @cart is already set by before_action
-    @cart_items = @cart.cart_items.includes(:product)  # Get cart items associated with the cart
+   @cart = Cart.find_by(id: params[:id])
+    @cart_items = @cart.cart_items
   end
 
   def add_item
-    if @cart.add_item(params[:product_id])
-      redirect_to @cart, notice: 'Item added to your cart!'
+    @product = Product.find(params[:product_id])
+    quantity = params[:quantity].to_i
+
+    if @cart.add_product(@product.id, quantity)
+      redirect_to cart_path(@cart.id), notice: 'Item added to your cart!'
     else
-      redirect_to @cart, alert: 'Error adding item.'
+      redirect_to cart_path, alert: 'Error adding item.'
     end
   end
-
+  
   def remove_item
-    if @cart.remove_item(params[:product_id])
-      redirect_to @cart, notice: 'Item removed from your cart.'
-    else
-      redirect_to @cart, alert: 'Error removing item.'
-    end
+    
+    @cart_item = @cart.cart_items.find(params[:cart_item_id])  # Find the cart item by its ID
+    @cart_item.destroy  # Remove it from the cart
+    redirect_to cart_path(@cart), notice: 'Item removed from your cart.'
   end
 
   def update_item
-    if @cart.update_item(params[:product_id], params[:quantity])
-      redirect_to @cart, notice: 'Cart updated!'
+    @product = Product.find(params[:product_id])
+    quantity = params[:quantity].to_i
+
+    if @cart.update_product_quantity(@product.id, quantity)
+      redirect_to cart_path(@cart.id), notice: 'Cart updated!'
     else
-      redirect_to @cart, alert: 'Error updating cart.'
+      redirect_to cart_path, alert: 'Error updating cart.'
     end
   end
 
   private
 
   def set_cart
-    @cart = current_user.cart || current_user.create_cart
+    if current_user
+      @cart = current_user.cart || current_user.create_cart
+    else
+      redirect_to new_user_session_path, alert: "Please log in to access your cart."
+    end
   end
 end

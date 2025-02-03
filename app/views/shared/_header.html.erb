@@ -1,6 +1,5 @@
-<header class="bg-blue-600 text-white shadow-md">
+<header class="bg-blue-600 text-white shadow-md sticky top-0 z-50">
   <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-
     <div class="text-2xl font-semibold">
       <a href="/" class="text-white hover:text-gray-300">Shoppers</a>
     </div>
@@ -9,12 +8,21 @@
       <a href="/" class="text-white hover:text-gray-300">Home</a>
       <a href="/products" class="text-white hover:text-gray-300">Products</a>
       <a href="/carts" class="text-white hover:text-gray-300">Cart</a>
-      <%# <a href="/users/" class="text-white hover:text-gray-300">Profile</a> %>
-
+      <a href="/orders" class="text-white hover:text-gray-300">Order</a>
+    
       <% if user_signed_in? %>
-      <a href="/users/<%= current_user.id %>" class="text-white hover:text-gray-300">Profile</a>
+        <a href="/users/<%= current_user.id %>" class="text-white hover:text-gray-300">Profile</a>
 
-        <a href="/users/sign_out" class="text-white hover:text-gray-300">Logout</a>
+        <% if current_user.role.to_s.strip == "seller" %>
+          <a href="/dashboard" class="text-white hover:text-gray-300">Dashboard</a>
+        <% end %>
+
+        <% if current_user.role.to_s.strip == "admin" %>
+          <a href="/panel" class="text-white hover:text-gray-300">Panel</a>
+        <% end %>
+
+        <%= button_to "Logout", destroy_user_session_path, method: :get, data: { turbo_method: :delete }, class: "text-white hover:text-gray-300 bg-transparent border-none cursor-pointer" %>
+
       <% else %>
         <a href="/users/sign_in" class="text-white hover:text-gray-300">Login</a>
       <% end %>

@@ -1,0 +1,64 @@
+<h1 class="text-3xl font-semibold text-center mb-6">Add Product</h1>
+
+<%= form_with model: @product, url: products_path, class: "w-full max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-lg" do |f| %>
+  <% if @product.errors.any? %>
+    <div class="bg-red-100 text-red-600 p-4 rounded-md mb-4">
+      <h2 class="font-semibold"><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+      <ul class="list-disc pl-6">
+        <% @product.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-4">
+    <%= f.label :name, class: "block text-lg font-medium text-gray-700" %>
+    <%= f.text_field :name, class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :description, class: "block text-lg font-medium text-gray-700" %>
+    <%= f.text_area :description, class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500", rows: 4 %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :price, class: "block text-lg font-medium text-gray-700" %>
+    <%= f.number_field :price, class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :stock_quantity, class: "block text-lg font-medium text-gray-700" %>
+    <%= f.number_field :stock_quantity, class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :sku, class: "block text-lg font-medium text-gray-700" %>
+    <%= f.text_field :sku, class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :is_active, class: "block text-lg font-medium text-gray-700" %>
+    <%= f.check_box :is_active, class: "mt-1" %>
+    <span class="ml-2 text-gray-600">Active</span>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :weight, class: "block text-lg font-medium text-gray-700" %>
+    <%= f.number_field :weight, class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :brand, class: "block text-lg font-medium text-gray-700" %>
+    <%= f.text_field :brand, class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :color, class: "block text-lg font-medium text-gray-700" %>
+    <%= f.text_field :color, class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+  </div>
+
+  <div class="mb-4 text-center">
+    <%= f.submit "Add Product", class: "w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+  </div>
+<% end %>
