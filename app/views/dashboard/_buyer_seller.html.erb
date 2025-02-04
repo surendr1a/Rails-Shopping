@@ -1,0 +1,19 @@
+<h2 class="text-xl font-semibold text-gray-800"><%= type %> List</h2>
+<table class="min-w-full table-auto border-collapse">
+  <thead>
+    <tr class="border-b">
+      <th class="px-4 py-2 text-left">Name</th>
+      <th class="px-4 py-2 text-left">Email</th>
+      <th class="px-4 py-2 text-left">Phone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% users.each do |user| %>
+      <tr class="border-b">
+        <td class="px-4 py-2"><%= user.name %></td>
+        <td class="px-4 py-2"><%= user.email %></td>
+        <td class="px-4 py-2"><%= user.phone %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

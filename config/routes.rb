@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   # User Dashboard route
   get '/dashboard', to: 'dashboard#show', as: 'dashboard'
+   get '/panel', to: 'dashboard#panel'
+   
 
   # Product-related routes
   resources :products do

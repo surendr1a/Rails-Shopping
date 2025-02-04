@@ -16,6 +16,15 @@ class OrdersController < ApplicationController
       )
 
       cart_items.each do |item|
+        product = item.product
+
+        if product.stock_quantity < item.quantity
+          raise StandardError, "Not enough stock for #{product.name}"
+        end
+
+        # ✅ Product quantity reduce kar rahe hain
+        product.update!(stock_quantity: product.stock_quantity - item.quantity)
+
         @order.order_items.create!(
           product_id: item.product_id,
           quantity: item.quantity,
@@ -28,7 +37,7 @@ class OrdersController < ApplicationController
     end
 
     redirect_to orders_path, notice: "Order placed successfully!"
-  rescue => e
+  rescue StandardError => e
     redirect_to carts_path, alert: "Order failed: #{e.message}"
   end
 end
