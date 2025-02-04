@@ -22,7 +22,6 @@ class OrdersController < ApplicationController
           raise StandardError, "Not enough stock for #{product.name}"
         end
 
-        # ✅ Product quantity reduce kar rahe hain
         product.update!(stock_quantity: product.stock_quantity - item.quantity)
 
         @order.order_items.create!(

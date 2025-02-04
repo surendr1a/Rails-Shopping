@@ -43,4 +43,5 @@ end
   # Admin namespace for managing products and orders
   # namespace :admin do
   # end
+  get '404', :to => 'application#page_not_found'
 end

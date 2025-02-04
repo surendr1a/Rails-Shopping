@@ -1,5 +1,6 @@
 class Product < ApplicationRecord
   belongs_to :user
+  # has_many_attached :images
   
   # Validations
   validates :stock_quantity, numericality: { greater_than_or_equal_to: 0 }
@@ -11,6 +12,6 @@ class Product < ApplicationRecord
   ransack_alias :name_or_description, [:name, :description]
 
 
-  # Custom validation to ensure that stock quantity does not exceed available stock
+
   
 end
