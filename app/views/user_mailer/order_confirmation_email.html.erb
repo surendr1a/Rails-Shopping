@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Order Confirmation</title>
+  </head>
+  <body>
+    <h1>Hi <%= @user.name %>,</h1>
+    <p>Your order has been successfully placed! Here are the details:</p>
+
+    <h2>Order Details</h2>
+    <p><strong>Order ID:</strong> <%= @order.id %></p>
+    <p><strong>Total Price:</strong> ₹<%= @order.total_price %></p>
+    
+    <h3>Items:</h3>
+
+
+    <p>Thank you for shopping with us!</p>
+    <p><%= link_to 'View your order', orders_path(@order) %></p>
+  </body>
+</html>

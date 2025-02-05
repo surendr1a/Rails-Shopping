@@ -58,6 +58,11 @@
     <%= f.text_field :color, class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
   </div>
 
+  <div class="mb-4">
+   <%= f.label :image, class: "block text-lg font-medium text-gray-700"  %>
+   <%= f.file_field :image,  class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+  </div>
+  
   <div class="mb-4 text-center">
     <%= f.submit "Add Product", class: "w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
   </div>

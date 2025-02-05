@@ -10,6 +10,11 @@ Rails.application.routes.draw do
 
   # User Dashboard route
   get '/dashboard', to: 'dashboard#show', as: 'dashboard'
+   get '/panel', to: 'dashboard#panel'
+   
+   post 'create_order', to: 'payments#create'
+   post 'verify_payment', to: 'payments#verify'
+
 
   # Product-related routes
   resources :products do
@@ -41,4 +46,5 @@ end
   # Admin namespace for managing products and orders
   # namespace :admin do
   # end
+  get '404', :to => 'application#page_not_found'
 end

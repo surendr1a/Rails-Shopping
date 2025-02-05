@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Welcome to My Awesome Site</title>
+  </head>
+  <body>
+    <h1>Welcome, <%= @user.name %>!</h1>
+    <p>Thank you for signing up for My Awesome Site. We are excited to have you on board!</p>
+    <p>Click the link below to login:</p>
+    <p><%= link_to 'Login', @url %></p>
+  </body>
+</html>

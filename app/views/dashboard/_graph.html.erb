@@ -1,0 +1,66 @@
+
+
+<h2 class="text-2xl font-bold m-4">📊 Sales & Revenue Analytics</h2>
+
+
+<div class="m-4">
+<select id="chart_type" class="block p-2 mt-2 border rounded-md bg-blue-500 text-white font-bold focus:outline-none focus:ring-2 focus:ring-blue-500" onchange="changeChartType()">
+
+    <option class="bg-white text-blue-500 font-bold" value="daily_sales">📅 Daily Sales</option>
+    <option class="bg-white text-blue-500 font-bold" value="weekly_sales">📅 Weekly Sales</option>
+    <option class="bg-white text-blue-500 font-bold" value="monthly_sales">📅 Monthly Sales</option>
+    <option class="bg-white text-blue-500 font-bold" value="daily_revenue">💰 Daily Revenue</option>
+    <option class="bg-white text-blue-500 font-bold" value="weekly_revenue">💰 Weekly Revenue</option>
+    <option class="bg-white text-blue-500 font-bold" value="monthly_revenue">💰 Monthly Revenue</option>
+  </select>
+</div>
+
+
+<div id="chart_container">
+ 
+  <div id="daily_sales_chart" class="mb-6">
+    <h3 class="text-xl font-semibold text-gray-800">📅 Daily Sales</h3>
+    <%= line_chart @sales_data, xtitle: "Date", ytitle: "Units Sold", colors: ["#3e95cd"] %>
+  </div>
+
+
+  <div id="weekly_sales_chart" class="hidden mb-6">
+    <h3 class="text-xl font-semibold text-gray-800">📅 Weekly Sales</h3>
+    <%= line_chart @weekly_sales_data, xtitle: "Week", ytitle: "Units Sold", colors: ["#ff6384"] %>
+  </div>
+
+  <div id="monthly_sales_chart" class="hidden mb-6">
+    <h3 class="text-xl font-semibold text-gray-800">📅 Monthly Sales</h3>
+    <%= line_chart @monthly_sales_data, xtitle: "Month", ytitle: "Units Sold", colors: ["#36a2eb"] %>
+  </div>
+
+  <div id="daily_revenue_chart" class="hidden mb-6">
+    <h3 class="text-xl font-semibold text-gray-800">💰 Daily Revenue</h3>
+    <%= line_chart @revenue_data, xtitle: "Date", ytitle: "Revenue (₹)", colors: ["#4CAF50"] %>
+  </div>
+
+  <div id="weekly_revenue_chart" class="hidden mb-6">
+    <h3 class="text-xl font-semibold text-gray-800">💰 Weekly Revenue</h3>
+    <%= line_chart @weekly_revenue_data, xtitle: "Week", ytitle: "Revenue (₹)", colors: ["#FFA500"] %>
+  </div>
+
+  <div id="monthly_revenue_chart" class="hidden mb-6">
+    <h3 class="text-xl font-semibold text-gray-800">💰 Monthly Revenue</h3>
+    <%= line_chart @monthly_revenue_data, xtitle: "Month", ytitle: "Revenue (₹)", colors: ["#8A2BE2"] %>
+  </div>
+</div>
+
+<script>
+  function changeChartType() {
+    
+    document.querySelectorAll('.mb-6').forEach(function(chart) {
+      chart.classList.add('hidden');
+    });
+
+   
+    var selectedChart = document.getElementById('chart_type').value;
+
+  
+    document.getElementById(selectedChart + '_chart').classList.remove('hidden');
+  }
+</script>

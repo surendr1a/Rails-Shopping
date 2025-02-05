@@ -34,8 +34,8 @@ class CartsController < ApplicationController
   
   def remove_item
     
-    @cart_item = @cart.cart_items.find(params[:cart_item_id])  # Find the cart item by its ID
-    @cart_item.destroy  # Remove it from the cart
+    @cart_item = @cart.cart_items.find(params[:cart_item_id])  
+    @cart_item.destroy  
     redirect_to cart_path(@cart), notice: 'Item removed from your cart.'
   end
 

@@ -20,6 +20,15 @@ gem "devise"
 gem "byebug"
 gem "ransack"
 
+gem 'chartkick'
+gem 'groupdate'
+gem 'chart-js-rails'
+gem 'image_processing'
+gem 'razorpay'
+
+
+# gem "ruby-vips"
+# gem 'pg'
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
@@ -57,6 +66,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "letter_opener", group: :development
 end
 
 group :test do
