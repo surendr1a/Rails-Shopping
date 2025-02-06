@@ -15,9 +15,9 @@
       <% @cart_items.each do |cart_item| %>
         <tr>
           <td class="border border-gray-300 px-4 py-2"><%= cart_item.product.name %></td>
-          <td class="border border-gray-300 px-4 py-2">$ <%= cart_item.product.price %></td>
+          <td class="border border-gray-300 px-4 py-2">₹ <%= cart_item.product.price %></td>
           <td class="border border-gray-300 px-4 py-2"><%= cart_item.quantity %></td>
-          <td class="border border-gray-300 px-4 py-2">$ <%= cart_item.quantity * cart_item.product.price %></td>
+          <td class="border border-gray-300 px-4 py-2">₹ <%= cart_item.quantity * cart_item.product.price %></td>
           <td class="border border-gray-300 px-4 py-2">
         
             <%= form_with url: cart_remove_item_path(@cart.id, cart_item.id), method: :delete, local: true do |form| %>
@@ -30,7 +30,7 @@
     </tbody>
   </table>
 
-  <p class="mt-6 text-xl font-semibold text-right">Total: $ <%= @cart_items.sum { |item| item.quantity * item.product.price } %></p>
+  <p class="mt-6 text-xl font-semibold text-right">Total: ₹ <%= @cart_items.sum { |item| item.quantity * item.product.price } %></p>
   <%= form_with url: place_order_path, method: :post, local: true do |form| %>
     <%= form.submit 'Order Now', class: "bg-green-500 text-white py-4 px-4 rounded my-4 cursor-pointer  max-w-xs mx-auto flex justify-center items-center" %>
 

@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :orders, dependent: :destroy
   has_many :products
   has_one :cart, dependent: :destroy
+  has_many :reviews, dependent: :destroy
+  has_many :reviewed_products, through: :reviews, source: :product
 
   validates :email, presence: true, uniqueness: true
   validates :password, length: { minimum: 6 }, if: :password_required?

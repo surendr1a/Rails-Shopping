@@ -58,6 +58,6 @@ class ProductsController < ApplicationController
     @cart = current_user.cart || current_user.create_cart
   end
   def product_params
-    params.require(:product).permit(:name, :description, :price, :user_id, :inventory_id, :category_id, :stock_quantity, :sku, :weight, :brand, :color, :is_active, :image)
+    params.require(:product).permit(:name, :description, :price, :user_id, :inventory_id, :category_id, :stock_quantity, :sku, :weight, :brand, :color, :is_active, :image, :quantity)
   end
 end

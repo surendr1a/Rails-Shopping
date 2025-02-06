@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_05_112844) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_06_071720) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -229,6 +229,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_05_112844) do
     t.index ["supplier_id"], name: "index_purchase_orders_on_supplier_id"
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "product_id", null: false
+    t.integer "rating"
+    t.text "review_text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_reviews_on_product_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -326,6 +337,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_05_112844) do
   add_foreign_key "product_reviews", "users"
   add_foreign_key "purchase_orders", "products"
   add_foreign_key "purchase_orders", "suppliers"
+  add_foreign_key "reviews", "products"
+  add_foreign_key "reviews", "users"
   add_foreign_key "shippings", "orders"
   add_foreign_key "transactions", "orders"
   add_foreign_key "wishlists", "products"
