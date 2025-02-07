@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   # Product-related routes
   resources :products do
     post 'add_to_cart', on: :collection
-      resources :reviews, only: [:create, :index]
+      # resources :reviews, only: [:create, :index]
   end
   post 'cart/add_item', to: 'carts#add_item', as: 'add_item_cart'
 

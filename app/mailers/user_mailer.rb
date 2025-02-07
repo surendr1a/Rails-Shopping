@@ -9,9 +9,10 @@ class UserMailer < ApplicationMailer
       format.text
     end
   end
-  def after_sign_email(user)
-    mail(to: @user.email, subject: "Successfully Registered - ##{@user.id}") do |format|
-    format.html
-    format.text 
-  end
+#   def after_sign_email(user)
+#     mail(to: @user.email, subject: "Successfully Registered - ##{@user.id}") do |format|
+#     format.html
+#     format.text 
+#   end
+# end
 end

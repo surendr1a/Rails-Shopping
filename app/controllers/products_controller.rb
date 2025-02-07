@@ -5,12 +5,14 @@ class ProductsController < ApplicationController
 
   def index
     @q = Product.ransack(params[:q])
+    # @pradi = @q.result(distinct: true)
     @products = @q.result(distinct: true)
+    # @products = @pradi.result.page(params[:page]).per(2)
+    # @products = @q.result.page(params[:page]).per(1)
     # @products = Product.all
   end
 
   def show
-    
     @product = Product.find(params[:id])
   end
 

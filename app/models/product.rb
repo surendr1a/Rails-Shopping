@@ -1,7 +1,7 @@
 class Product < ApplicationRecord
   belongs_to :user
   has_one_attached :image
-  has_many :reviews, dependent: :destroy
+  # has_many :reviews, dependent: :destroy
 
   
   # Validations
@@ -12,7 +12,4 @@ class Product < ApplicationRecord
     super + ["name", "description", "price", "stock_quantity"]
   end
   ransack_alias :name_or_description, [:name, :description]
-
-
-  
 end
