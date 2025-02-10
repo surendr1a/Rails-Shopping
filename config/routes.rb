@@ -32,6 +32,15 @@ end
 
   resources :cart_items, only: [:create, :destroy]
 
+resources :payments do
+  collection do
+    post 'create'
+    get 'success'
+    get 'cancel'
+  end
+end
+
+
   resources :users, only: [:show] do
     get 'profile', on: :collection, to: 'users#show'
   end

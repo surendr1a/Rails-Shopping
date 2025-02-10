@@ -1,0 +1,14 @@
+<%= form_tag payments_path , method: :post do %>
+  <label for="amount">Amount (in cents):</label>
+  <%= number_field_tag :amount, 500, min: 100, step: 100 %>
+
+  <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+    data-description="Payment Checkout"
+    data-amount="500"
+    data-locale="auto">
+  </script>
+<% end %>
+
+<%= button_to "Subscribe", payments_path, method: :post %>

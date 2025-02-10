@@ -26,6 +26,10 @@ gem 'chart-js-rails'
 gem 'image_processing'
 gem 'razorpay'
 gem "will_paginate"
+gem 'faker'
+gem 'stripe'
+gem 'dotenv-rails'
+
 
 # gem "ruby-vips"
 # gem 'pg'

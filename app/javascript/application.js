@@ -2,3 +2,5 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "chartkick/chart.js"
+
+var stripe = Stripe("<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>");

@@ -16,6 +16,14 @@ module Shoping
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
+    # Load Stripe credentials
+    config.before_initialize do
+      if Rails.application.credentials.dig(:stripe, :publishable_key) && Rails.application.credentials.dig(:stripe, :secret_key)
+        ENV["STRIPE_PUBLISHABLE_KEY"] = Rails.application.credentials.dig(:stripe, :publishable_key)
+        ENV["STRIPE_SECRET_KEY"] = Rails.application.credentials.dig(:stripe, :secret_key)
+      end
+    end
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

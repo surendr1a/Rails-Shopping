@@ -15,28 +15,50 @@
       <% @cart_items.each do |cart_item| %>
         <tr>
           <td class="border border-gray-300 px-4 py-2"><%= cart_item.product.name %></td>
-          <td class="border border-gray-300 px-4 py-2">$ <%= cart_item.product.price %></td>
+          <td class="border border-gray-300 px-4 py-2">₹ <%= cart_item.product.price %></td>
           <td class="border border-gray-300 px-4 py-2"><%= cart_item.quantity %></td>
-          <td class="border border-gray-300 px-4 py-2">$ <%= cart_item.quantity * cart_item.product.price %></td>
+          <td class="border border-gray-300 px-4 py-2">₹ <%= cart_item.quantity * cart_item.product.price %></td>
           <td class="border border-gray-300 px-4 py-2">
-        
             <%= form_with url: cart_remove_item_path(@cart.id, cart_item.id), method: :delete, local: true do |form| %>
-  <%= form.submit 'Remove Item', class: "bg-red-500 text-white px-4 py-2 rounded" %>
-<% end %>
-
+              <%= form.submit 'Remove Item', class: "bg-red-500 text-white px-4 py-2 rounded" %>
+            <% end %>
           </td>
         </tr>
       <% end %>
     </tbody>
   </table>
 
-  <p class="mt-6 text-xl font-semibold text-right">Total: $ <%= @cart_items.sum { |item| item.quantity * item.product.price } %></p>
-  <%= form_with url: place_order_path, method: :post, local: true do |form| %>
-    <%= form.submit 'Order Now', class: "bg-green-500 text-white py-4 px-4 rounded my-4 cursor-pointer  max-w-xs mx-auto flex justify-center items-center" %>
+  <p class="mt-6 text-xl font-semibold text-right">Total: ₹ <%= @cart_items.sum { |item| item.quantity * item.product.price } %></p>
 
-  <% end %>
-  
-  
+  <div class="text-center mt-4">
+    <!-- Order Now Button -->
+    <button onclick="showConfirmation()" class="bg-green-500 text-white py-4 px-4 rounded cursor-pointer max-w-xs mx-auto flex justify-center items-center">
+      Order Now
+    </button>
+
+    <!-- Confirmation Dialog -->
+    <div id="confirmationBox" class="hidden mt-4 p-4 bg-white shadow-lg border rounded-lg text-center">
+      <p class="text-lg font-semibold text-gray-800">Are you sure you want to place this order?</p>
+      <div class="mt-4 flex justify-center gap-4">
+        <%= form_with url: place_order_path, method: :post, local: true, html: { id: "orderForm" } do |form| %>
+          <%= form.submit 'Confirm Order', class: "bg-blue-500 text-white py-2 px-4 rounded" %>
+        <% end %>
+        <button onclick="hideConfirmation()" class="bg-gray-500 text-white py-2 px-4 rounded">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showConfirmation() {
+      document.getElementById('confirmationBox').classList.remove('hidden');
+    }
+
+    function hideConfirmation() {
+      document.getElementById('confirmationBox').classList.add('hidden');
+    }
+  </script>
+
 <% else %>
   <p class="text-center text-gray-600 text-lg">Your cart is empty.</p>
 <% end %>
+
