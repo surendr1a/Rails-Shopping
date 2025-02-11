@@ -2,13 +2,32 @@ require 'rails_helper'
 
 
 RSpec.describe Product, type: :model do
-  it "valid user with all attributes" do
-    user = User.new(name: "Surendra", email: "test@example.com", password: "password")
-    expect(user).to be_valid
-  end
+  describe "validations" do
+    let!(:user) { FactoryBot.create(:user) }
+    let(:product) { FactoryBot.build(:product, user: user) }
 
-  it "invalid without email" do
-    user = User.new(name: "Surendra", password: "password")
-    expect(user).to_not be_valid
+    it "is valid with valid attributes" do
+      expect(product).to be_valid
+    end
+
+    it "is invalid without a name" do
+      product.name = nil
+      expect(product).to_not be_valid
+    end
+
+    it "is invalid without a price" do
+      product.price = nil
+      expect(product).to_not be_valid
+    end
+
+    it "is invalid if price is 0 or negative" do
+      product.price = 0
+      expect(product).to_not be_valid
+    end
+
+    it "is invalid if stock is negative" do
+      product.stock_quantity = -5
+      expect(product).to_not be_valid
+    end
   end
 end

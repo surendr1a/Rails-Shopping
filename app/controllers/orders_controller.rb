@@ -39,7 +39,12 @@ class OrdersController < ApplicationController
 
     end
   # byebug 
-    UserMailer.order_confirmation_email(current_user, @order).deliver_now
+     
+  
+  SendWelcomeEmailJob.perform_later(current_user, @order)
+
+
+    # UserMailer.order_confirmation_email(current_user, @order).deliver_now
 
     redirect_to orders_path, notice: "Order placed successfully!"
 

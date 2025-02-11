@@ -30,7 +30,6 @@ gem 'faker'
 gem 'stripe'
 gem 'dotenv-rails'
 
-
 # gem "ruby-vips"
 # gem 'pg'
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
@@ -64,7 +63,7 @@ group :development, :test do
   gem 'database_cleaner'
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
-
+  gem 'simplecov', require: false
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 end
