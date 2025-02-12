@@ -15,6 +15,8 @@ module Shoping
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
+    config.active_job.queue_adapter = :solid_queue 
+    config.solid_queue.connects_to = { database: { writing: :queue } }
 
     # Load Stripe credentials
     config.before_initialize do

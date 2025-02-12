@@ -5,7 +5,7 @@ class Order < ApplicationRecord
   # byebug
   validates :status, presence: true, inclusion: { in: %w[pending completed cancelled] }
   # after_create_commit :order_confirmation_email
-
+  
   # private
 
   # def order_confirmation_email

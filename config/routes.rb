@@ -14,6 +14,8 @@ Rails.application.routes.draw do
    post 'create_order', to: 'payments#create'
    post 'verify_payment', to: 'payments#verify'
 
+   
+
 
   # Product-related routes
   resources :products do
@@ -39,6 +41,8 @@ resources :payments do
     get 'cancel'
   end
 end
+
+
 
 
   resources :users, only: [:show] do

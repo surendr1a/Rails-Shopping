@@ -41,7 +41,7 @@ class OrdersController < ApplicationController
   # byebug 
      
   
-  SendWelcomeEmailJob.perform_later(current_user, @order)
+     SendWelcomeEmailJob.perform_now(current_user, @order)
 
 
     # UserMailer.order_confirmation_email(current_user, @order).deliver_now

@@ -8,6 +8,7 @@ class Product < ApplicationRecord
   validates :name, presence: true 
   validates :stock_quantity, numericality: { greater_than: 0 }
   validates :price, presence: true, numericality: { greater_than: 0 }  
+  validates :description, presence: true
 
   def self.ransackable_attributes(auth_object = nil)
     super + ["name", "description", "price", "stock_quantity"]

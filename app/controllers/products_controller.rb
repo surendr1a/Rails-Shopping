@@ -7,6 +7,7 @@ class ProductsController < ApplicationController
     @q = Product.ransack(params[:q])
     # @pradi = @q.result(distinct: true)
     @products = @q.result(distinct: true)
+
     # @products = @pradi.result.page(params[:page]).per(2)
     # @products = @q.result.page(params[:page]).per(1)
     # @products = Product.all
@@ -14,6 +15,9 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
+    if @product.nil?
+      redirect_to products_path, alert: "Product not found."
+    end
   end
 
   def new
@@ -44,8 +48,12 @@ class ProductsController < ApplicationController
 
   def destroy
     @product = Product.find(params[:id])
-    @product.destroy
-    redirect_to dashboard_path, notice: 'Product deleted successfully.'
+    if @product
+      @product.destroy
+      redirect_to dashboard_path, notice: 'Product deleted successfully.'
+    else
+      redirect_to dashboard_path, alert: 'Product not found.'
+    end
   end
   
 
